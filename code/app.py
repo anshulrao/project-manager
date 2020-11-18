@@ -254,9 +254,15 @@ def construct_app():
                                    bg="#a7e2ff")
     p_type_window.add(p_android_btn)
 
-    emp_count = tk.Spinbox(left_panel, font=font.Font(family='Copperplate Gothic Bold',
+    emp_count_window = tk.PanedWindow(left_panel, bg="#004c72", orient=tk.HORIZONTAL)
+    left_panel.add(emp_count_window)
+    emp_count_lbl = tk.Label(emp_count_window, text="Employee Count:",
+                             font=font.Font(family='Copperplate Gothic Bold', size=15),
+                             bg="#004c72", fg="white")
+    emp_count_spinbox = tk.Spinbox(left_panel, font=font.Font(family='Copperplate Gothic Bold',
                                                       size=15), from_=1, to=3)
-    left_panel.add(emp_count)
+    emp_count_window.add(emp_count_lbl)
+    emp_count_window.add(emp_count_spinbox)
 
     add_project_btn = tk.Button(left_panel, text="Add Project",
                                 font=font.Font(family='Copperplate Gothic Bold', size=15),
