@@ -1,28 +1,43 @@
-# project-manager
+# Project Manager
 
-About
+## About
 A simple application for assigning projects to employees.
+
 I built this as an independent project during my first year
 of college.
-The algorithm is inspired from obtaining maximum matching in 
-a bipartite graph.
 
-Input:
+## Features
+- We have two panels in the application where the user
+can add employee and project data.
+- The data is dumped as pickle files so it is not lost across
+various runs.
+- We have a refresh button which will re-allocate the projects
+after new data is added.
+- There is a clear button that clears all data and is to be used 
+when the user wants to start over.
 
-Employee Information: Name, Skills(Languages, Domains, Types)
 
-Project Information: Name, Language, Domain, Type
+## Input
+
+### Employee Information
+Name | Skills (Languages, Domains, Types)
+---- | --------------------------------
+
+### Project Information
+Name | Language | Domain | Type
+---- | -------- | ------ | ----
 
 - Language(s) can be Python, Java, C++
 - Domain(s) can be Payments, Inventory, Tracking
 - Type(s) can be Front-end, Back-end, Mobile App:iOS, Mobile App: Android
 
-Output:
+
+## Output
 
 Allotment of projects to employees based on their skills
 and the requirements of the project.
 
-It additionally display a pie chart to show the status of project
+It additionally displays a pie chart to show the status of project
 assignments.
 
 ```
@@ -30,7 +45,7 @@ GREEN: Assigned
 RED:   Vacant
 ```
 
-Algorithm:
+## Algorithm
 
 We convert the input data into a bipartite graph.
 
@@ -59,27 +74,29 @@ Else if another employee **e'** has been assigned **p** already then
 we recursively look for another project for **e'** other than **p** 
 so that we are able to assign **p** to **e**.
 
-Example:- 
 
-Employees:
+#### Example
 
-- Erica - (E)
-- Nathan - (N)
-- Allen - (A)
-- Georgia - (G)
-- Kiara - (K)
+**Employees**:
 
-Projects:
+- Erica - (`E`)
+- Nathan - (`N`)
+- Allen - (`A`)
+- Georgia - (`G`)
+- Kiara - (`K`)
+
+
+**Projects**:
 
 NOTE: We have split the projects based on headcount.
 
-- Integrate Wallets (Paytm, Amazon Pay) - (I)
-- Migrate Database from SQL to NoSQL - (M1, M2)
-- Revamp 'Product Addition' Infrastructure - (R1, R2)
+- Integrate Wallets (Paytm, Amazon Pay) - (`I`)
+- Migrate Database from SQL to NoSQL - (`M1`,` M2`)
+- Revamp 'Product Addition' Infrastructure - (`R1`, `R2`)
 
 ![Bipartite Graph](https://github.com/anshulrao/project-manager/blob/main/extras/example_graph.png)
 
-The matrix reprentation of the graph:-
+The matrix representation of the graph:-
 ```
 [
 [0, 1, 1, 0, 0], 
@@ -90,22 +107,24 @@ The matrix reprentation of the graph:-
 ]
 ```
 
-- E fits the requirements of M1, M2.
-- N fits the requirements of I, R1, R2.
-- A fits the requirements of I.
-- G fits the requirements of M1, M2.
-- K fits the requirements of M1, M2.
+- `E` fits the requirements of `M1`, `M2`.
+- `N` fits the requirements of `I`, `R1`, `R2`.
+- `A` fits the requirements of `I`.
+- `G` fits the requirements of `M1`, `M2`.
+- `K` fits the requirements of `M1`, `M2`.
 
 
-*How are they assigned?*
+*How are they assigned via the algorithm?*
 
-- E is assigned M1.
-- N is assigned I.
-- A is assigned I, N is now assigned R1.
-- G is assigned M1, E is now assigned M2.
+- `E` is assigned `M1`.
+- `N` is assigned `I`.
+- `A` is assigned `I` after `N` is assigned `R1`.
+- `G` is assigned `M1` after `E` is assigned `M2`.
+- `K` is not assigned any project since `E` and `G` have already
+been assigned `M1` and `M2` and neither of them(`E` or `G`) can be assigned 
+anything else.
 
-Below you can see the screen capture that confirms the above
-after K and R(R1, R2) are added to it:-
+The screen recording below confirms the above:-
 
 ![Screen Recording](https://github.com/anshulrao/project-manager/blob/main/extras/screen%20capture.gif)
 
