@@ -271,7 +271,7 @@ def construct_app():
                                     "language": p_lang_val.get(),
                                     "domain": p_domain_val.get(),
                                     "type": p_type_val.get(),
-                                    "emp_count": emp_count.get()}))
+                                    "emp_count": emp_count_spinbox.get()}))
     left_panel.add(add_project_btn)
 
     # -------------------------------------------------RIGHT PANEL------------------------------------------------------
