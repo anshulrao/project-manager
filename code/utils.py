@@ -99,7 +99,7 @@ def allot_projects():
 
     def bipartite_matching(employee, match, seen):
         """
-        A DFS based recursive solution that returns true if a project mapping
+        A recursive solution that returns true if a project mapping
         for employee is possible.
 
         :param employee: The employee for whom we are searching a project.

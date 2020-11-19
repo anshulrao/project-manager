@@ -345,6 +345,10 @@ def refresh(root, clear=False):
 
 
 def main():
+    """
+    The main function.
+
+    """
     construct_app()
 
 
