@@ -1,5 +1,8 @@
+#!/usr/bin/env python
 """
 The main project manager application.
+
+@author anshulrao
 
 """
 

@@ -1,4 +1,9 @@
-"""Non-UI specific utility functions"""
+"""
+Non-UI specific utility functions
+
+@author anshulrao
+
+"""
 
 import pandas as pd
 import os
