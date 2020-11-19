@@ -1,20 +1,21 @@
 # Project Manager
 
 ## About
-A simple application for assigning projects to employees.
+A simple application for assigning projects to employees that I had built as an 
+independent project during my first year of college.
 
-I built this as an independent project during my first year
-of college.
+The user enters the information about employee's skills and project's requirements
+and the application returns the project allocation result after using an algorithm internally to decide
+which employee is to be assigned to which project.
+
 
 ## Features
-- We have two panels in the application where the user
-can add employee and project data.
-- The data is dumped as pickle files so it is not lost across
-various runs.
-- We have a refresh button which will re-allocate the projects
-after new data is added.
-- There is a clear button that clears all data and is to be used 
-when the user wants to start over.
+- [Input](#input) : We have two panels in the application where the user can add employee and project data.
+- [Output](#output) : The project allocation is diplayed on the right side along with a pie chart displaying the current 
+status of allocations (how many are allocated/vacant). 
+- The data is dumped as pickle files so it is not lost across various runs.
+- We have a refresh button which will re-allocate the projects after new emplpoyee/project data is added.
+- There is a clear button that clears all data and is to be used when the user wants to start over.
 
 
 ## Input
@@ -27,9 +28,9 @@ Name | Skills (Languages, Domains, Types)
 Name | Language | Domain | Type
 ---- | -------- | ------ | ----
 
-- Language(s) can be Python, Java, C++
-- Domain(s) can be Payments, Inventory, Tracking
-- Type(s) can be Front-end, Back-end, Mobile App: iOS, Mobile App: Android
+- Language(s) can be Python, Java, C++.
+- Domain(s) can be Payments, Inventory, Tracking.
+- Type(s) can be Front-end, Back-end, Mobile App: iOS, Mobile App: Android.
 
 
 ## Output
@@ -51,8 +52,7 @@ We convert the input data into a bipartite graph.
 
 *What is a bipartite graph?*
 
-A graph whose vertices can be divided into two 
-disjoint and independent sets.
+A graph whose vertices can be divided into two disjoint and independent sets.
 
 Let the two disjoint sets be `E` and `P`. `E` for employees and
 `P` for projects.
@@ -64,18 +64,18 @@ Each of these will form a unique node in set `P`.
 - There is an edge from a node **e** in `E` to a node **p** in `P`, if and only if,
 at least two skills of employee **e** match the requirements of the project **p**.
 
-Once the bipartite graph is constructed, we use a DFS approach to 
+Once the bipartite graph is constructed, we use a recursive approach to 
 find the maximum matching from `E` to `P`.
 
-If employee **e** fits the requirements of project **p** and **p** has
+- If employee **e** fits the requirements of project **p** and **p** has
 not yet been assigned to anyone then we assign **p** to **e**.
 
-Else, if another employee **e'** has been assigned **p** already then
+- Else, if another employee **e'** has been assigned **p** already then
 we recursively look for another project for **e'** other than **p** 
 so that we are able to assign **p** to **e**.
 
 
-#### EXAMPLE
+## Example
 
 **Employees**:
 
@@ -94,9 +94,60 @@ NOTE: We have split the projects based on headcount.
 - **M**igrate Database from SQL to NoSQL - (`M1`,` M2`)
 - **R**evamp 'Product Addition' Infrastructure - (`R1`, `R2`)
 
+### Construct a bipartite graph using input data
+
+#### Nodes
+- `Employee Set: {E, N, A, G, K}`
+- `Project Set: {I, M1, M2, R1, R2}`
+
+#### Edges
+From [algorithm](#algorithm) we know that we get an edge from employee to project if there are at least two matches
+between skills (of employee) and requirements (of project).
+
+Employee | Skills
+-------- | ------
+E | `['python', 'tracking', 'frontend']`
+N | `['python', 'java', 'android', 'frontend', 'inventory']`
+A | `['cpp', 'android', 'ios', 'payments']`
+G | `['python', 'android', 'tracking', 'ios']`
+K | `['cpp', 'tracking', 'java', 'backend']`
+
+Project | Requirements
+------- | ------------
+I | `['android', 'java', 'payments']`
+M1, M2 | `['python', 'tracking', 'backend']`
+R1, R2 | `['python', 'inventory', 'backend']`
+
+```diff
+- E -> I : []
++ E -> M1, M2 : ['python', 'tracking']
+- E -> R1, R2 : ['python']
+
++ N -> I : ['java', 'android']
+- N -> M1, M2 : ['python']
++ N -> R1, R2 : ['python', 'inventory']
+
++ A -> I : ['android', 'payments']
+- A -> M1, M2 : []
+- A -> R1, R2 : []
+
+- G -> I : ['android']
++ G -> M1, M2 : ['python', 'tracking']
+- G -> R1, R2 : ['python']
+
+- K -> I : ['java']
++ K -> M1, M2 : ['tracking', 'backend']
+- K -> R1, R2 : ['backend']
+```
+
+#### Graph
+
 ![Bipartite Graph](https://github.com/anshulrao/project-manager/blob/main/extras/example_graph.png)
 
-The matrix representation of the graph:-
+
+### Allocate projects by recursively matching employee nodes to project nodes with the aim to maximize the number of matches
+
+#### Matrix Representation of Graph
 ```
 [
 [0, 1, 1, 0, 0], 
@@ -107,15 +158,7 @@ The matrix representation of the graph:-
 ]
 ```
 
-- `E` fits the requirements of `M1`, `M2`.
-- `N` fits the requirements of `I`, `R1`, `R2`.
-- `A` fits the requirements of `I`.
-- `G` fits the requirements of `M1`, `M2`.
-- `K` fits the requirements of `M1`, `M2`.
-
-
-*How are they assigned via the algorithm?*
-
+#### Algorithm's Flow
 - `E` is assigned `M1`.
 - `N` is assigned `I`.
 - `A` is assigned `I` after `N` is assigned `R1`.
@@ -124,7 +167,7 @@ The matrix representation of the graph:-
 been assigned `M1` and `M2` and neither of them(`E` or `G`) can be assigned 
 anything else.
 
-The screen recording below confirms the above:-
+##### The screen recording below confirms the above
 
 ![Screen Recording](https://github.com/anshulrao/project-manager/blob/main/extras/screen%20capture.gif)
 
