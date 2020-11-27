@@ -4,7 +4,7 @@
 A simple application for assigning projects to employees that I had built as an 
 independent project during my first year of college.
 
-The user enters the information about employee's skills and project's requirements
+The user enters the information about employee skills and project requirements
 and the application returns the project allocation result after using an algorithm internally to decide
 which employee is to be assigned to which project.
 
