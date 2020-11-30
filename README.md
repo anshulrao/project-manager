@@ -1,8 +1,7 @@
 # Project Manager
 
 ## About
-A simple application for assigning projects to employees that I had built as an 
-independent project during my first year of college.
+A simple application for assigning projects to employees.
 
 The user enters the information about employee skills and project requirements
 and the application returns the project allocation result after using an algorithm internally to decide
